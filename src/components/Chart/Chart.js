@@ -15,13 +15,6 @@ import {
 
 import classes from "./Chart.module.css";
 
-const XAxisTickFormatter = (val) => {
-	const tick = new Date(val);
-	return `${tick.getHours()}:${
-		tick.getMinutes() < 10 ? "0" + tick.getMinutes() : tick.getMinutes()
-	}`;
-};
-
 const tooltipLabelFormatter = (name, props) => {
 	if (props && props[0]) {
 		const date = new Date(props[0].payload.Date);
@@ -39,11 +32,23 @@ const tooltipFormatter = (value) => {
 };
 
 const Chart = () => {
-	const { data } = useContext(StockCtx);
+	const { data, sorting } = useContext(StockCtx);
 
 	const average = data.reduce((acc, item) => acc + item.Close, 0) / data.length;
 
   const chartWidth = window.screen.width < 850 ? window.screen.width * 0.75 : 800
+
+  const XAxisTickFormatter = (val) => {
+    if (sorting.id !== '1ws') {
+      const tick = new Date(val);
+      return `${tick.getHours()}:${
+        tick.getMinutes() < 10 ? "0" + tick.getMinutes() : tick.getMinutes()
+      }`;
+    } else {
+      const tick = new Date(val);
+      return `${tick.getDate()}.${tick.getMonth()}.${tick.getFullYear()}`
+    }
+  };
 
 	return (
 		<div className={classes.Chart}>
@@ -62,7 +67,7 @@ const Chart = () => {
 					}
 				/>
 				<CartesianGrid stroke="#ccc" />
-				<XAxis dataKey="Date" tickFormatter={XAxisTickFormatter} />
+				<XAxis dataKey="Date" tickFormatter={XAxisTickFormatter.bind(sorting.id)} />
 				<YAxis
 					orientation="right"
 					interval="preserveEnd"
