@@ -1,0 +1,22 @@
+.Tab {
+	border: 1px solid #ccc;
+	border-bottom: none;
+	margin: 0 0.1rem;
+	padding: 0.5rem 0.8rem;
+	transition: all ease-in-out 0.2s;
+	cursor: pointer;
+	user-select: none;
+	box-shadow: inset 0px 0px 11px -7px #000;
+}
+
+.Tab:hover {
+	background-color: rgba(0, 0, 0, 0.2);
+}
+
+.Tab p {
+	margin: 0;
+}
+
+.active {
+	box-shadow: none;
+}

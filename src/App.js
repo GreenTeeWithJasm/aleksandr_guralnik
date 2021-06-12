@@ -1,23 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import { useContext } from 'react'
+import { StockCtx } from './context/stock-data'
 
-function App() {
+import Card from './components/UI/Card/Card'
+import PeriodFilter from './components/PeriodFilter/PeriodFilter'
+import Chart from './components/Chart/Chart'
+
+const App = () => {
+  const ctx = useContext(StockCtx)
+
+  let content = (
+    <main>
+      <PeriodFilter />
+      <Card>
+        <Chart />
+      </Card>
+    </main>
+  )
+
+  if (ctx.error) {
+    content = <p>An error occured: {ctx.error.message}</p>
+  }
+
+  if (ctx.status === 'pending') {
+    content = <div className="spinner"></div>
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="container">
+        <header>
+          <h1>Apple stock data</h1>
+        </header>
+        {content}
+      </div>
     </div>
   );
 }

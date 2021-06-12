@@ -1,0 +1,9 @@
+.Chart {
+	background-color: #fff;
+	display: flex;
+	justify-content: center;
+}
+
+.label tspan {
+	fill: red;
+}
