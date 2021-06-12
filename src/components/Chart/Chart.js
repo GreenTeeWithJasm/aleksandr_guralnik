@@ -43,9 +43,11 @@ const Chart = () => {
 
 	const average = data.reduce((acc, item) => acc + item.Close, 0) / data.length;
 
+  const chartWidth = window.screen.width < 850 ? window.screen.width * 0.75 : 800
+
 	return (
 		<div className={classes.Chart}>
-			<AreaChart width={800} height={300} data={data}>
+			<AreaChart width={chartWidth} height={300} data={data}>
 				<Area type="linear" dataKey="Close" fill="#8884d8" stroke="#8884d8" />
 				<ReferenceLine
 					y={average}
